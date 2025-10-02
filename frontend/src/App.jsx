@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import supabase from "../config/supabaseClient";
+import supabase from "./config/supabaseClient";
+
+//components
+import Header from "./components/Header.jsx";
+import ProductCard from "./components/ProductCard.jsx"
 
 const getContent = () => {
   return {
     header: "Velkommen til MatBørsen",
     subtitle: "Her finner du dagens beste priser",
   };
-}
-const Header = ({content}) => {
-  return (
-    <div>
-    <h1>{content.header}</h1>
-    <p>{content.subtitle}</p>
-    </div>
-  );
-}
+};
+
+
+
 
 const App = () => {
   const content = getContent();
@@ -50,7 +49,7 @@ const App = () => {
       {products && (
         <div className="products">
           {products.map(product => (
-            <p>{product.name}</p>
+            <ProductCard key = {product.id} product = {product}/>
           ))}
         </div>
         )}
