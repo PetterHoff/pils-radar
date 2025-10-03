@@ -33,7 +33,7 @@ const Productpage = () => {
   return (
     <div>
       <Navbar />
-      <h2>Data fra Supabase</h2>
+      <h2>Oversikt over alle produkter</h2>
       {fetchError && (<p>{fetchError}</p>)}
       {products && (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">

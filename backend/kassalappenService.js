@@ -7,6 +7,19 @@ dotenv.config();
 const API_URL = "https://kassal.app/api/v1";
 const API_KEY = process.env.KASSALAPPEN_API_KEY;
 
+
+const normalizeVolume = (p) => {
+  if (!p.weight || !p.weight_unit) return null;
+
+  switch (p.weight_unit.toLowerCase()) {
+    case "ml": return p.weight / 1000;
+    case "l": return p.weight;
+    case "cl": return p.weight / 100;
+    default: return null;
+  };
+};
+
+
 async function fetchProducts() {
   try {
     // hent unike øl-produkter fra Kassalappen API
@@ -18,25 +31,18 @@ async function fetchProducts() {
     const products = res.data.data;
     console.log(`Fant ${products.length} produkter`);
 
-    console.log(products[0]);
-
-
-    for (const product of products) {
-      if (!product.ean) continue; // hopp over produkter uten EAN
-    }
-    products.slice(0, 5).forEach(p => {
-      console.log(`${p.name} - ${p.current_price} kr (${p.store[0]?.name})`);
-    });
-    
+    console.log(products[2]);
     /*
     Mapping
     */
     const mappedProducts = products.map(p => ({
         name: p.name,
         brand: p.brand,
+        ean: p.ean,
         price: p.current_price,
-        store: p.store,
+        store: p.store.name,
         image: p.image,
+        volume: normalizeVolume(p),
       }));
 
     /*
@@ -44,7 +50,8 @@ async function fetchProducts() {
     */
     const {error } = await supabase
       .from("Products")
-      .insert(mappedProducts);
+      .upsert(mappedProducts, { onConflict: ["ean", "store"] })
+      .select();
 
     if (error) throw error;
     console.log("Produkter lagret i Supabase");
