@@ -3,18 +3,11 @@ import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 
 // Components
-import Header from "../components/Header";
+import Navbar from "../components/Navbar";
 import ProductCard from "../components/ProductCard";
 
-const getContent = () => {
-  return {
-    header: "Velkommen til MatBørsen",
-    subtitle: "Her finner du dagens beste priser",
-  };
-};
+const Productpage = () => {
 
-const Homepage = () => {
-  const content = getContent();
   const [fetchError, setFetchError] = useState(null);
   const [products, setProducts] = useState(null);
 
@@ -39,7 +32,7 @@ const Homepage = () => {
 
   return (
     <div>
-      <Header content={content} />
+      <Navbar />
       <h2>Data fra Supabase</h2>
       {fetchError && (<p>{fetchError}</p>)}
       {products && (
@@ -53,4 +46,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Productpage;

@@ -12,3 +12,5 @@ await gjør at koden venter på promise-resultatet før den fortsetter.
 install dependicies 
 npm install axios dotenv @supabase/supabase-js
 
+## Frontend
+npm install react-router-dom
