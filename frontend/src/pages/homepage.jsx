@@ -43,7 +43,7 @@ const Homepage = () => {
       <h2>Data fra Supabase</h2>
       {fetchError && (<p>{fetchError}</p>)}
       {products && (
-        <div className="products">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {products.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}

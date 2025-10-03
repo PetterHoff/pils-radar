@@ -1,4 +1,5 @@
-import { fetchProducts } from './kassalappenService.js'
+import { fetchProducts } from './kassalappenService.js'  
+
 
 async function main() {
   console.log(" Starter import fra Kassalappen...")

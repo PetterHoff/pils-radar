@@ -2,15 +2,16 @@ import "../styles.css"
 
 const ProductCard = ({ product }) => {
     return (
-        <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-                {product.name}
-            </h3>
-            <p className="text-2xl font-bold text-green-600">
-                {typeof product.price === 'number' 
-                    ? `${product.price.toFixed(2)} kr` 
-                    : product.price}
-            </p>
+        <div className="p-4 border rounded-lg shadow-md flex flex-col items-center w-64">
+            <h3 className="font-semibold text-lg">{product.name}</h3>
+            <p>{product.price} kr</p>
+            <div className="w-48 h-100 mt-4 overflow-hidden rounded-md">
+                <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                />
+            </div>
         </div>
     )
 }
