@@ -38,11 +38,13 @@ async function fetchProducts() {
     const mappedProducts = products.map(p => ({
         name: p.name,
         brand: p.brand,
-        ean: p.ean,
         price: p.current_price,
-        store: p.store.name,
         image: p.image,
+        ean: p.ean,
         volume: normalizeVolume(p),
+        store: p.store.name,
+        store_logo: p.store.logo,
+        price_history: p.price_history
       }));
 
     /*
