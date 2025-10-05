@@ -43,12 +43,10 @@ const Homepage = () => {
 
         {error && <p className="text-red-500">{error}</p>}
 
-        {cheapest ? (
+        {cheapest && (
           <div className="flex justify-center">
             <ProductCard product={cheapest} />
           </div>
-        ) : (
-          <p>Laster billigste pils...</p>
         )}
       </section>
     </div>

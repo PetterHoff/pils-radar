@@ -25,7 +25,7 @@ async function fetchProducts() {
     // hent unike øl-produkter fra Kassalappen API
     const res = await axios.get(`${API_URL}/products`, {
       headers: { Authorization: `Bearer ${API_KEY}` },
-      params: { search: "pilsner", size: 50, page: 1 }
+      params: { search: "pilsner", size: 100, page: 1 }
     });
           
     const products = res.data.data;

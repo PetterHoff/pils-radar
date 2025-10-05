@@ -25,14 +25,22 @@ const Productpage = () => {
       
       data.forEach((item) => {
         const existing = cheapestMap.get(item.ean);
+        const safeImage = !item.image?.includes("bilder.kolonial.no")
+          ? item.image
+          : existing?.image;
 
         if (!existing) {
-          cheapestMap.set(item.ean, item);
-        }
-        else if(item.price < existing.price) {
-          cheapestMap.set(item.ean, item);
-        }
+          cheapestMap.set(item.ean, { ...item, image: safeImage });
+        } else {
 
+          if (item.price < existing.price) {
+            cheapestMap.set(item.ean, { ...item, image: safeImage });
+          }
+
+          else if (!existing.image && item.image) {
+            cheapestMap.set(item.ean, { ...existing, image: safeImage });
+          }
+        }
       });
       const cheapestProducts = Array.from(cheapestMap.values());
       setProducts(cheapestProducts);

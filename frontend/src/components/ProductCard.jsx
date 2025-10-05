@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
 
 
                 {/* Pris og butikklogo ved siden av hverandre */}
-                <div className="p-4.5 flex items-center">
+                <div className="w-48 h-48 flex justify-center items-center overflow-hidden rounded-lg">
                     <img
                         src={product.store_logo}
                         alt={product.store}
