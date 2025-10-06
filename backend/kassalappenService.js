@@ -21,38 +21,61 @@ const normalizeVolume = (p) => {
 
 
 async function fetchProducts() {
-  try {
-    // hent unike øl-produkter fra Kassalappen API
-    const res = await axios.get(`${API_URL}/products`, {
-      headers: { Authorization: `Bearer ${API_KEY}` },
-      params: { search: "pilsner", size: 100, page: 1 }
-    });
-          
-    const products = res.data.data;
-    console.log(`Fant ${products.length} produkter`);
+  let allProducts = [];
+  let page = 1;
+  let hasMore = true;
 
-    console.log(products[2]);
-    /*
-    Mapping
-    */
-    const mappedProducts = products.map(p => ({
+  try {
+    while (hasMore) {
+      console.log(`📦 Henter side ${page}...`);
+      const res = await axios.get(`${API_URL}/products`, {
+        headers: { Authorization: `Bearer ${API_KEY}` },
+        params: { search: "pilsner", size: 100, page },
+      });
+
+      const data = res.data.data;
+      if (!data || data.length === 0) {
+        hasMore = false;
+        break;
+      }
+
+      allProducts.push(...data);
+      page++;
+    }
+
+
+
+    console.log(`✅ Fant totalt ${allProducts.length} produkter`);
+
+    const mappedProducts = allProducts.map(p => ({
         name: p.name,
         brand: p.brand,
         price: p.current_price,
         image: p.image,
         ean: p.ean,
         volume: normalizeVolume(p),
-        store: p.store.name,
-        store_logo: p.store.logo,
+        store: p.store?.name || "Ukjent butikk",
+        store_logo: p.store?.logo || null,
         price_history: p.price_history
       }));
 
-    /*
+
+    const seen = new Set();
+    const uniqueProducts = mappedProducts.filter((p) => {
+      const key = `${p.ean}-${p.store}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+      });
+
+    console.log(`🧾 Etter duplikatfjerning: ${uniqueProducts.length} unike produkter`);
+
+    /*  
     insert supabase
     */
     const {error } = await supabase
       .from("Products")
-      .upsert(mappedProducts, { onConflict: ["ean", "store"] })
+      .upsert(uniqueProducts, { onConflict: ["ean", "store"] })
       .select();
 
     if (error) throw error;

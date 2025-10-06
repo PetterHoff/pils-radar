@@ -6,10 +6,14 @@ import supabase from "../config/supabaseClient";
 import Navbar from "../components/Navbar";
 import ProductCard from "../components/ProductCard";
 
+//data 
+import cityStores from "../data/cityStores.json";
+
 const Productpage = () => {
 
   const [fetchError, setFetchError] = useState(null);
   const [products, setProducts] = useState(null);
+  const [selectedCities, setSelectedCities] = useState([]);
   
   useEffect(() => {
     const fetchProducts = async () => {
@@ -48,15 +52,57 @@ const Productpage = () => {
 
     fetchProducts();
   }, []);
-  
+
+  {/* filtercity */}
+  const toggleCity = (city) => {
+    setSelectedCities((prev) =>
+      prev.includes(city)
+        ? prev.filter((c) => c !== city)
+        : [...prev, city]
+    );
+  };
+
+  const cities = Object.keys(cityStores);
+
+  // 🔍 Filtrer produkter basert på valgte byer
+  const filteredProducts =
+    selectedCities.length === 0
+    ? products
+    : products?.filter((p) =>
+        selectedCities.some((city) =>
+          cityStores[city]?.includes(p.store)
+        )
+      );
+
+
+
   return (
     <div>
       <Navbar />
       <h2>Oversikt over alle produkter</h2>
+      
+      {/* By-knapper med flervalg */}
+      <div className="flex gap-3 flex-wrap justify">
+      {cities.map((city) => (
+            <button
+              key={city}
+              onClick={() => toggleCity(city)}
+              className={`px-4 py-2 rounded-full border font-medium transition-all duration-200
+                ${
+                  selectedCities.includes(city)
+                    ? "bg-amber-500 text-white border-yellow-400 shadow-md"
+                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                }`}
+            >
+              {city}
+            </button>
+          ))}
+      </div>
+
       {fetchError && (<p>{fetchError}</p>)}
-      {products && (
+      {filteredProducts && (
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {products.map(product => (
+          {filteredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
