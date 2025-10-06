@@ -79,7 +79,7 @@ const Productpage = () => {
   return (
     <div>
       <Navbar />
-      <h2>Oversikt over alle produkter</h2>
+      <h2>Oversikt over all pils </h2>
       
       {/* By-knapper med flervalg */}
       <div className="flex gap-3 flex-wrap justify">
@@ -102,7 +102,8 @@ const Productpage = () => {
       {fetchError && (<p>{fetchError}</p>)}
       {filteredProducts && (
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {filteredProducts.map(product => (
+          {filteredProducts.filter(product => product.price)
+          .map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
