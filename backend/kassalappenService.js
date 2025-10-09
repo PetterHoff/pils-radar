@@ -68,7 +68,7 @@ async function fetchProducts() {
       return true;
       });
 
-    console.log(`🧾 Etter duplikatfjerning: ${uniqueProducts.length} unike produkter`);
+    console.log(`Etter duplikatfjerning: ${uniqueProducts.length} unike produkter`);
 
     /*  
     insert supabase
