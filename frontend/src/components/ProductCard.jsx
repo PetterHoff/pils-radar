@@ -2,6 +2,9 @@ import {Link} from "react-router-dom"
 import "../styles.css"
 
 const ProductCard = ({ product }) => {
+    if (!product || !product.ean ) return null;
+    
+    
     return (
             <div className="p-4 border rounded-lg shadow-md flex flex-col items-center w-64">
             <Link to={`/product/${product.ean}`} className="no-underline text-black">
