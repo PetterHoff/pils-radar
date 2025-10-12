@@ -78,26 +78,30 @@ async function fetchProducts() {
       };
     });
 
-    {/* fjerner duplikater */}
-    const seen = new Set();
-    const uniqueProducts = mappedProducts.filter((p) => {
-      const key = `${p.ean}-${p.store}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-      });
+  {/* fjerner duplikater */}
+  const seen = new Set();
+  const uniqueProducts = mappedProducts.filter((p) => {
+    const key = `${p.ean}-${p.store}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+    });
 
-    console.log(`Etter duplikatfjerning: ${uniqueProducts.length} unike produkter`);
+  {/* fjerner manglende butikk*/}
+  const storeProducts = uniqueProducts.filter(p => p.store !== "Ukjent butikk");
 
-   {/* manglende bildehåndtering */}
+  {/* fjerner alkholfri*/}
+  const alkoholProducts = storeProducts.filter(p => !p.name.includes("0.0"))
+
+  {/* manglende bildehåndtering */}
    const imageMap = new Map();
    
-   uniqueProducts.forEach((p) => {
+   alkoholProducts.forEach((p) => {
     if (p.image && !imageMap.has(p.ean)) {
       imageMap.set(p.ean, p.image);
     }
    });
-   const imageFilledProducts = uniqueProducts.map((p) => {
+   const imageFilledProducts = alkoholProducts.map((p) => {
     const finalImage = p.image || imageMap.get(p.ean) || null;
     return{...p, image: finalImage}
 

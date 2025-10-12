@@ -6,15 +6,14 @@ const ProductCard = ({ product }) => {
     
     
     return (
-            <div className="p-4 border rounded-lg shadow-md flex flex-col items-center w-64">
+            <div className="rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 bg-white/80 backdrop-blur-sm">
             <Link to={`/product/${product.ean}`} className="no-underline text-black">
-                    <h3 className="font-semibold text-lg">{product.name}</h3>
+                    <h3 className="font-semibold text-lg text-center">{product.name}</h3>
 
                 {/* Produktbilde */}
                 <div className="w-60 h-100 mt-4 overflow-hidden rounded-md">
                     <img
                         src={product.image}
-                        alt={product.name}
                         className="w-full h-full object-contain"
                     />
                 </div>
