@@ -68,7 +68,7 @@ const Homepage = () => {
         {error && <p className="text-red-500">{error.message}</p>}
 
         {(cheapest05 || cheapest033) && (
-          <div className="flex justify-center gap-10 ">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
             <ProductCard product={cheapest05} />
             <ProductCard product={cheapest033} />
             <ProductCard product={cheapest3} />

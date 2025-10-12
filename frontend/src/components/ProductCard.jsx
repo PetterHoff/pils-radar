@@ -6,12 +6,12 @@ const ProductCard = ({ product }) => {
     
     
     return (
-            <div className="rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 bg-white/80 backdrop-blur-sm">
+            <div className="max-w-xs m mx-auto rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 bg-white/80 backdrop-blur-sm">
             <Link to={`/product/${product.ean}`} className="no-underline text-black">
                     <h3 className="font-semibold text-lg text-center">{product.name}</h3>
 
                 {/* Produktbilde */}
-                <div className="w-60 h-100 mt-4 overflow-hidden rounded-md">
+                <div className="w-60 h-100 mt-4 overflow-hidden rounded-md flex items-center justify-center">
                     <img
                         src={product.image}
                         className="w-full h-full object-contain"
