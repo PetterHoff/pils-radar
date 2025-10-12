@@ -1,40 +1,43 @@
-import {Link} from "react-router-dom"
-import "../styles.css"
+import { Link } from "react-router-dom";
+import "../styles.css";
 
 const ProductCard = ({ product }) => {
-    if (!product || !product.ean ) return null;
-    
-    
-    return (
-            <div className="max-w-xs m mx-auto rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 bg-white/80 backdrop-blur-sm">
-            <Link to={`/product/${product.ean}`} className="no-underline text-black">
-                    <h3 className="font-semibold text-lg text-center">{product.name}</h3>
+  if (!product || !product.ean) return null;
 
-                {/* Produktbilde */}
-                <div className="w-60 h-100 mt-4 overflow-hidden rounded-md flex items-center justify-center">
-                    <img
-                        src={product.image}
-                        className="w-full h-full object-contain"
-                    />
-                </div>
+  return (
+    <div className="max-w-[320px] w-full mx-auto rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition duration-200 bg-white flex flex-col justify-between p-4">
+      <Link to={`/product/${product.ean}`} className="no-underline text-black flex flex-col h-full">
+        
+        {/* Produktnavn */}
+        <h3 className="font-semibold text-base sm:text-lg text-center mb-3 line-clamp-2">
+          {product.name}
+        </h3>
 
+        {/* Produktbilde */}
+        <div className="w-full h-40 sm:h-48 flex items-center justify-center overflow-hidden mb-3">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="object-contain max-h-full"
+          />
+        </div>
 
-                {/* Pris og butikklogo ved siden av hverandre */}
-                <div className="w-48 h-48 flex justify-center items-center overflow-hidden rounded-lg">
-                    <img
-                        src={product.store_logo}
-                        alt={product.store}
-                        className="w-10 h-10 rounded-full"
-                    />
-                    <p className="font-medium w-32">{product.store}</p>
-                    <p className="text-lg">{product.price} kr</p>
+        {/* Pris + butikklogo */}
+        <div className="flex items-center justify-between mt-auto pt-2 border-t">
+          <div className="flex items-center space-x-2">
+            <img
+              src={product.store_logo}
+              alt={product.store}
+              className="w-8 h-8 rounded-full"
+            />
+            <p className="text-sm font-medium">{product.store}</p>
+          </div>
+          <p className="text-lg ">{product.price} kr</p>
+        </div>
 
-                </div>
-
-                
-             </Link>
-            </div>
-        )
-    }
+      </Link>
+    </div>
+  );
+};
 
 export default ProductCard;
