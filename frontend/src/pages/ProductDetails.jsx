@@ -38,20 +38,28 @@ const ProductDetails = () => {
   return (
     <div>
       <Navbar />
-      <div className="p-8 sm:p-12 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-10 text-gray-800 text-center md:text-left">
-          Priser for {productName}
-        </h2>
+      <div className="p-8 sm:p-12 max-w-10xl mx-auto">
 
-        <div className="flex flex-col md:flex-row items-start justify-between gap-10">
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {/* Produktbilde til venstre */}
-          <div className="flex-shrink-0 flex justify-center md:justify-start w-full md:w-1/3">
+          <div className=" flex justify-center md:justify-start">
             <img
               src={productPrices.length > 0 ? productPrices[0].image : ""}
               alt={productName}
               className="w-60 h-60 object-contain"
             />
           </div>
+
+          {/*tittel og beskrivelse i midten */}
+          <div className="text-center md:text-left flex flex-col justify-center px-2 md:-ml-32">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">{productName}</h2>
+            <p className="text-gray-600 leading-relaxed">
+                info kommer senere
+            </p>
+          </div>
+
+          
 
           {/* Butikk-bokser til høyre */}
           <div className="flex flex-col gap-4 w-full md:w-2/3 md:pr-6">

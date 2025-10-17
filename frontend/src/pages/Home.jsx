@@ -62,16 +62,25 @@ const Homepage = () => {
       <Navbar />
 
       <section className="p-4 sm:p-6">
-        <h1 className="text-xl font-bold mb-4 flex justify-center"> Billigste 0.5, 0.33 og 6pack</h1>
+        <h1 className="text-xl font-bold mb-4 flex justify-center"> De laveste prisene akkurat nå</h1>
 
         {/* ✅ Vis feilmelding riktig */}
         {error && <p className="text-red-500">{error.message}</p>}
 
         {(cheapest05 || cheapest033) && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-            <ProductCard product={cheapest05} />
-            <ProductCard product={cheapest033} />
-            <ProductCard product={cheapest3} />
+            <div className="text-center">
+              <h1 className="text-lg font-semibold mb-2 text-gray-800">0,5l boks</h1>
+              <ProductCard product={cheapest05} />
+            </div>
+            <div className="text-center">
+              <h1 className="text-lg font-semibold mb-2 text-gray-800">0,33l boks</h1>
+              <ProductCard product={cheapest033} />
+            </div>
+            <div className="text-center">
+              <h1 className="text-lg font-semibold mb-2 text-gray-800">6pack</h1>
+              <ProductCard product = {cheapest3} />
+            </div>
           </div>
 
         )}
