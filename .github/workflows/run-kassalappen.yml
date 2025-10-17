@@ -1,0 +1,29 @@
+name: Run Kassalappen Import
+
+on:
+  schedule:
+    - cron: "0 * * * *" 
+  workflow_dispatch: 
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --prefix backend
+
+      - name: Run backend script
+        run: node backend/index.js
+        env:
+          KASSALAPPEN_API_KEY: ${{ secrets.KASSALAPPEN_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
