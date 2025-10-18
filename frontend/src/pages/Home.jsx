@@ -58,13 +58,13 @@ const Homepage = () => {
     fetchCheapest3();
   }, []);
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div>
       <Navbar />
 
       <section className="p-4 sm:p-6">
         <h1 className="text-xl font-bold mb-4 flex justify-center"> De laveste prisene akkurat nå</h1>
 
-        {/* ✅ Vis feilmelding riktig */}
+        {/*feilmelding  */}
         {error && <p className="text-red-500">{error.message}</p>}
 
         {(cheapest05 || cheapest033) && (

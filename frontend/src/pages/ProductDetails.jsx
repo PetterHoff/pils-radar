@@ -40,10 +40,10 @@ const ProductDetails = () => {
       <Navbar />
       <div className="p-8 sm:p-12 max-w-10xl mx-auto">
 
-
+  
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {/* Produktbilde til venstre */}
-          <div className=" flex justify-center md:justify-start">
+          <div className=" flex justify-center md:justify-start bg-white p-4 rounded-sm shadow-md w-fit">
             <img
               src={productPrices.length > 0 ? productPrices[0].image : ""}
               alt={productName}
@@ -62,13 +62,19 @@ const ProductDetails = () => {
           
 
           {/* Butikk-bokser til høyre */}
-          <div className="flex flex-col gap-4 w-full md:w-2/3 md:pr-6">
+          <div className="flex flex-col gap-6 w-full md:w-2/3 md:pr-6 bg-white p-3 rounded-sm divide-y divide-gray-400">
+            <p className ="font-semibold py-2">Priser</p>
             {productPrices
               .sort((a, b) => a.price - b.price)
-              .map((item, index) => (
+              .map((item, index) => {
+
+                const lowestPrice = productPrices[0].price;
+                const isLowest = item.price == lowestPrice;
+
+                return (
                 <div
                   key={index}
-                  className="w-full rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 bg-white p-4 flex items-center justify-between"
+                  className=" w-full flex items-center justify-between py-2"
                 >
                   <div className="flex items-center gap-3">
                     <img
@@ -78,11 +84,16 @@ const ProductDetails = () => {
                     />
                     <p className="font-medium text-gray-800">{item.store}</p>
                   </div>
-                  <p className="text-lg  text-gray-900">
+                  <p 
+                    className={`"text-lg" ${
+                    isLowest ? "text-green-500 font-semibold" : "text-red-500 font-semibold"
+                  }`}
+                  >
                     {item.price} kr
                   </p>
                 </div>
-              ))}
+                );
+              })}
           </div>
         </div>
       </div>
