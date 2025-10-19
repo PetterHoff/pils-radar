@@ -7,7 +7,10 @@ dotenv.config();
 const API_URL = "https://kassal.app/api/v1";
 const API_KEY = process.env.KASSALAPPEN_API_KEY;
 
-
+/*Datacleaning function
+*/
+/* Normalize all volums to be "l"
+*/
 const normalizeVolume = (p) => {
   if (!p.weight || !p.weight_unit) return null;
 
@@ -18,8 +21,8 @@ const normalizeVolume = (p) => {
     default: return null;
   };
 };
-
-
+/* filling Missing valus from volume by extracting their names
+*/
 const volumeFromName = (name) => {
   if (!name) return null;
 
@@ -29,8 +32,10 @@ const volumeFromName = (name) => {
   if (lower.includes("0,5l") || lower.includes("0.5l") || lower.includes("0.50") || lower.includes("0,50") || lower.includes("0,50l")) return 0.5;
   
   return null;
-
 }
+
+
+/* fetching products */
 async function fetchProducts() {
   let allProducts = [];
   let page = 1;
@@ -38,7 +43,7 @@ async function fetchProducts() {
 
   try {
     while (hasMore) {
-      console.log(`📦 Henter side ${page}...`);
+      console.log(`Henter side ${page}...`);
       const res = await axios.get(`${API_URL}/products`, {
         headers: { Authorization: `Bearer ${API_KEY}` },
         params: { search: "pilsner", size: 100, page },
@@ -55,8 +60,7 @@ async function fetchProducts() {
     }
 
 
-
-    console.log(`✅ Fant totalt ${allProducts.length} produkter`);
+    console.log(`Fant totalt ${allProducts.length}produkter`);
 
     const mappedProducts = allProducts.map(p => {
       let volume = normalizeVolume(p);
