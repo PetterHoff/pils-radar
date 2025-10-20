@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import ProductCard from "../components/ProductCard";
 
 
+
 const Homepage = () => {
   const [cheapest05, setCheapest05] = useState(null);
   const [cheapest033, setCheapest033] = useState(null);
@@ -80,6 +81,8 @@ const Homepage = () => {
             <div className="text-center">
               <h1 className="text-lg font-semibold mb-2 text-gray-800">6pack</h1>
               <ProductCard product = {cheapest3} />
+     
+              
             </div>
           </div>
 

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/logo";
 
+import Countdown from "./Countdown";
+
 
 const Navbar = () => {
     return (
@@ -10,6 +12,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center space-x-2">
             <Logo />
             <span className="font-bold text-xl text-gray-800">PilsRadar</span>
+            <Countdown />
           </Link>
           {/* Meny */}
           <ul className = "flex sm:space-x-5 text-sm sm:text-base">
