@@ -29,7 +29,7 @@ function Countdown() {
     const diffSec = Math.floor(((nextHour - date) / 1000) % 60);
 
     return (
-        <p>Tid {date.toLocaleTimeString()}, Tid til neste refresh {`${diffMin}:${ diffSec}`} NesteTime {nextHour.toLocaleTimeString()} </p>
+        <p className="text-xs italic text-gray-800"> Tid til neste refresh {`${diffMin}:${ diffSec}`} </p>
 
     );
 }

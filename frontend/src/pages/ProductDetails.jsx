@@ -34,6 +34,8 @@ const ProductDetails = () => {
   }, [id]);
 
   const productName = productPrices.length > 0 ? productPrices[0].name : "";
+  const updatedDate = productPrices.length > 0 ? productPrices[0].updated : "ukjent dato";
+
 
   return (
     <div>
@@ -54,8 +56,8 @@ const ProductDetails = () => {
           {/*tittel og beskrivelse i midten */}
           <div className="text-center md:text-left flex flex-col justify-center px-2 md:-ml-32">
             <h2 className="text-3xl font-bold text-gray-900 mb-3">{productName}</h2>
-            <p className="text-gray-600 leading-relaxed">
-                info kommer senere
+            <p className="text-gray-600 leading-relaxed italic  ">
+                 Prisene ble sist hentet: {updatedDate.slice(0, 10)}
             </p>
           </div>
 

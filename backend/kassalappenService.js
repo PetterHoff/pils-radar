@@ -59,7 +59,7 @@ async function fetchProducts() {
       page++;
     }
 
-
+    console.log(allProducts.slice(0, 3))
     console.log(`Fant totalt ${allProducts.length}produkter`);
 
     const mappedProducts = allProducts.map(p => {
@@ -78,7 +78,8 @@ async function fetchProducts() {
         volume,
         store: p.store?.name || "Ukjent butikk",
         store_logo: p.store?.logo || null,
-        price_history: p.price_history
+        price_history: p.price_history,
+        updated: p.updated_at
       };
     });
 
@@ -114,6 +115,8 @@ async function fetchProducts() {
    const withImages = imageFilledProducts.filter(
     (p) => p.image !== null && p.image !== ""
   );
+
+  
 
 
 
